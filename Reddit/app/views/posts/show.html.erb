@@ -1,0 +1,10 @@
+<h1><%= @post.title %></h1>
+
+<%= @post.try(:url) %>
+
+<section class="post-content">
+  <h4>Content</h4>
+  <p>
+    <%= @post.content %>
+  </p>
+</section>

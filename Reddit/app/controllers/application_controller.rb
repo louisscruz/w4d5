@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
     user.reset_session_token!
     session[:session_token] = nil
   end
+
+  def require_login
+    if current_user.nil?
+      flash[:errors] = ["FORBIDDEN"]
+      redirect_to root_url
+    end
+  end
 end

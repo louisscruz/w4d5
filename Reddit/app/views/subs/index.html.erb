@@ -1,0 +1,11 @@
+<h1>Subreddits</h1>
+
+<%= button_to "Add SubReddit", new_sub_url, method: "get" %>
+
+<ul class="subs">
+  <% @subs.each do |sub| %>
+    <li>
+      <%= link_to sub.title, sub_url(sub) %>
+    </li>
+  <% end %>
+</ul>

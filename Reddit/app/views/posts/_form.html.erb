@@ -1,0 +1,34 @@
+<% action = post.persisted? ? post_url(post) : posts_url %>
+
+<form action="<%= action %>" method="post">
+  <%= auth_form %>
+  <% if post.persisted?  %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <section>
+    <label for="title">Title</label>
+    <input type="text" name="post[title]" id="title" value="<%= post.title %>">
+  </section>
+
+  <section>
+    <label for="url">URL</label>
+    <input type="text" name="post[url]" id="url" value="<%= post.url %>">
+  </section>
+
+  <section>
+    <label for="content">Content</label>
+    <input type="content" name="post[content]" id="content">
+  </section>
+
+  <section>
+    <label>Sub Reddits</label>
+    <% @subs.each do |sub| %>
+    <label class="checkbox">
+      <input type="checkbox" name="post[sub_ids][]" value="<%= sub.id %>" <%="checked" if post.sub_ids.include?(sub.id)%> >
+    <%= sub.title %>
+    </label>
+    <% end %>
+  </section>
+
+  <button>Submit</button>
+</form>

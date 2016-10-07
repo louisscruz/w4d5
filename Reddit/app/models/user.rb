@@ -15,6 +15,12 @@ class User < ActiveRecord::Base
   validates :username, :email, :password_digest, :session_token, presence: true
   validates :username, :password_digest, :session_token, uniqueness: true
 
+  has_many :subs,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Sub
+  has_many :posts
+
   after_initialize :ensure_session_token
 
   def self.generate_session_token

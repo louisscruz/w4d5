@@ -3,8 +3,11 @@
   <nav>
     <%= link_to "Home", root_url %>
     <% if current_user %>
+      <%= link_to "New Post", new_post_url, method: "get"%>
       <%= link_to current_user.username, user_url(current_user) %>
       <%= link_to "Sign Out", session_url, method: "delete" %>
+    <% else %>
+      <%= link_to "Sign In", new_session_url, method: "get" %>
     <% end %>
   </nav>
 </header>
