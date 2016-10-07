@@ -1,0 +1,4 @@
+<h1><%= @user.username %></h1>
+<% if current_user.id == @user.id %>
+  <%= button_to "Edit", edit_user_url(@user), method: "get" %>
+<% end %>

@@ -53,4 +53,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :users, only: [:show, :new, :create, :edit, :update, :destroy]
+  resource :session, only: [:new, :create, :destroy]
+
+  root to: "users#new"
+
 end

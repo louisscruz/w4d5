@@ -1,0 +1,10 @@
+<header>
+  <h1>Reddit</h1>
+  <nav>
+    <%= link_to "Home", root_url %>
+    <% if current_user %>
+      <%= link_to current_user.username, user_url(current_user) %>
+      <%= link_to "Sign Out", session_url, method: "delete" %>
+    <% end %>
+  </nav>
+</header>
