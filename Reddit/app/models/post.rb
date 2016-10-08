@@ -12,8 +12,11 @@
 #
 
 class Post < ActiveRecord::Base
+  include Commentable
+  include Votable
+  
   validates :title, :user_id, presence: true
-  validate :has_a_sub
+  # validate :has_a_sub
 
   belongs_to :author,
     primary_key: :id,

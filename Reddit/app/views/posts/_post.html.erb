@@ -1,0 +1,5 @@
+<section>
+  <%= link_to post.title, post_url(post) %>
+  <%= button_to "upvote", upvote_post_url, method: "post" %>
+  <%= button_to "downvote", downvote_post_url, method: "post" %>
+</section>

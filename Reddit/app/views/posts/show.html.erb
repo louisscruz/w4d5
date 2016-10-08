@@ -1,10 +1,23 @@
 <h1><%= @post.title %></h1>
 
-<%= @post.try(:url) %>
+<small><%= @post.upvote_count %> upvotes, <%= @post.downvote_count %> downvotes</small>
+
+<p>
+  <%= @post.try(:url) %>
+</p>
 
 <section class="post-content">
   <h4>Content</h4>
   <p>
     <%= @post.content %>
   </p>
+</section>
+
+<section>
+  <h4>Comments</h4>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+  </ul>
 </section>

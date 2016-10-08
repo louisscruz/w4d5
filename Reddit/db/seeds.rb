@@ -44,7 +44,7 @@ puts "generating posts"
     title = "#{Faker::StarWars.specie} #{Faker::Hacker.verb} #{Faker::StarWars.character}"
   end while Post.exists?(title: title)
   url = Faker::Internet.url
-  content = Faker::Hipster.sentences(3)
+  content = Faker::Hipster.sentences(3).join(" ")
   Post.create!(author: user, title: title, url: url, content: content)
 end
 
@@ -58,3 +58,35 @@ Post.all.each do |post|
 end
 
 puts "associated #{PostSub.count} posts to subs"
+
+puts "generating comments"
+
+1000.times do
+  body = Faker::Hacker.say_something_smart
+  user = User.offset(rand(0...User.count)).first
+  if Comment.count > 4
+    commentable_type = ["Post", "Comment"].sample
+  else
+    commentable_type = "Post"
+  end
+  type = commentable_type.constantize
+  commentable_id = type.offset(rand(0...type.count)).first.id
+  Comment.create!(body: body, user_id: user.id, commentable_type: commentable_type, commentable_id: commentable_id)
+end
+
+puts "generated #{Comment.count} comments"
+
+puts "generate votes"
+
+1000.times do
+  user = User.offset(rand(0...User.count)).first
+  votable_type = ["Post", "Comment"].sample
+  type = votable_type.constantize
+  begin
+    votable_id = type.offset(rand(0...type.count)).first.id
+  end while Vote.exists?(author: user, votable_type: votable_type, votable_id: votable_id)
+  value = [1, -1].sample
+  Vote.create!(value: value, author: user, votable_type: votable_type, votable_id: votable_id)
+end
+
+puts "generated #{Vote.count} votes"

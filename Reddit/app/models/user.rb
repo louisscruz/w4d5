@@ -19,7 +19,15 @@ class User < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :user_id,
     class_name: :Sub
+
   has_many :posts
+
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Comment
+
+  has_many :votes
 
   after_initialize :ensure_session_token
 
